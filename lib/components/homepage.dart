@@ -32,6 +32,9 @@ class _HomePageState extends State<HomePage> {
                     var data = snapshot.data;
                     return WordCards(items: data['data']);
                   }
+                  else {
+                    return const Text("Chargement en cours");
+                  }
                   return const Row();
                 })));
   }
