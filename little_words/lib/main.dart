@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'helpers/dataHelper.dart';
 import 'components/username.dart';
+import 'components/mainapp.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,9 +38,9 @@ class Home extends StatelessWidget {
           Widget children;
           if (snapshot.hasData) {
             if (snapshot.data == "") {
-              children = const UsernamePage();
+              children = const MainAppPage();
             } else {
-              children = Text("utilisateur défini: ${snapshot.data}");
+              children = const MainAppPage();
             }
           } else {
             children = const UsernamePage();
