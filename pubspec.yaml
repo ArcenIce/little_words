@@ -23,6 +23,8 @@ dev_dependencies:
   latlong2:
   dio:
   provider:
+  geolocator:
+  http:
 
 
 flutter:
