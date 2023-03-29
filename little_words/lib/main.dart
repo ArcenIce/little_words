@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'helpers/dataHelper.dart';
 import 'components/username.dart';
@@ -33,14 +32,14 @@ class Home extends StatelessWidget {
       style: Theme.of(context).textTheme.displayMedium!,
       textAlign: TextAlign.center,
       child: FutureBuilder<String>(
-        future: getData(), // a previously-obtained Future<String> or null
+        future: getData(),
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
           Widget children;
           if (snapshot.hasData) {
             if (snapshot.data == "") {
               children = const UsernamePage();
             } else {
-              children = const UsernamePage();
+              children = Text("utilisateur défini: ${snapshot.data}");
             }
           } else {
             children = const UsernamePage();
