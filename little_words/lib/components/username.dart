@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:little_words/components/mainapp.dart';
 import 'package:provider/provider.dart';
 import '../helpers/dataHelper.dart';
 
@@ -22,7 +23,13 @@ class UsernamePage extends StatelessWidget {
               ),
             ),
             TextButton(
-              onPressed: () => {setData(usernameControl.text)},
+              onPressed: () => {
+                setData(usernameControl.text),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MainAppPage()),
+                )
+              },
               child: const Text('Enregistrer'),
             ),
           ],

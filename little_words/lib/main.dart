@@ -38,7 +38,7 @@ class Home extends StatelessWidget {
           Widget children;
           if (snapshot.hasData) {
             if (snapshot.data == "") {
-              children = const MainAppPage();
+              children = const UsernamePage();
             } else {
               children = const MainAppPage();
             }
