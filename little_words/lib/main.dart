@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'helpers/dataHelper.dart';
-import 'username.dart';
+import 'components/username.dart';
 
 void main() {
   runApp(const MyApp());
@@ -43,7 +43,7 @@ class Home extends StatelessWidget {
               children = const UsernamePage();
             }
           } else {
-            children = const SizedBox(width: 60, height: 60, child: CircularProgressIndicator());
+            children = const UsernamePage();
           }
           return Center(child: children);
         },
