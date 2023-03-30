@@ -1,4 +1,6 @@
 // ignore: depend_on_referenced_packages
+import 'dart:ffi';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:geolocator/geolocator.dart';
 import '../components/notes.dart';
@@ -49,4 +51,25 @@ Future getAllItems() async {
   var url = "https://backend.smallwords.samyn.ovh/word/around?latitude=50.950755&longitude=1.883361";
   var data = await fetchData(url);
   return data;
+}
+
+Future getPosition() async {
+  LocationPermission permission;
+  bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  if (!serviceEnabled) {
+    return Future.error('Location services are disabled.');
+  }
+  permission = await Geolocator.checkPermission();
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied) {
+      return Future.error('Location permissions are denied');
+    }
+  }
+
+  if (permission == LocationPermission.deniedForever) {
+    return Future.error('Location permissions are permanently denied, we cannot request permissions.');
+  }
+  var location = await Geolocator.getCurrentPosition();
+  return location;
 }
