@@ -60,9 +60,7 @@ class _AddButtonState extends State<AddButton>{
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,  
                 mainAxisSize: MainAxisSize.min,
-                
                 children: [
-            
                   Container(
                     height: 260, 
                     color: Colors.white,

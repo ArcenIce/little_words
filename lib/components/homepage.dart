@@ -6,6 +6,7 @@ import '../helpers/dataHelper.dart';
 import '../helpers/dbHelper.dart';
 import '../components/mynotes.dart';
 import '../components/addWidget.dart';
+import 'dart:math';
 
 class MyAppState extends ChangeNotifier {
   var current = 0;
@@ -21,6 +22,12 @@ List<Marker> setMarkers(data, context) {
   for (Map<String, dynamic> note in data) {
     final db = DbHelper();
     db.findAll();
+    Color tempcol = Color.fromRGBO(
+        random.nextInt(255),
+        random.nextInt(255),
+        random.nextInt(255),
+        1,
+    );
     markers.add(Marker(
       width: 120,
       height: 120,
@@ -35,7 +42,7 @@ List<Marker> setMarkers(data, context) {
                   builder: (context) => const HomePage(),
                 ));
           },
-          child: const Icon(Icons.location_on, color: Colors.blue, size: 35)),
+          child: Icon(Icons.location_on, color: tempcol, size: 35)),
     ));
   }
 
@@ -48,6 +55,8 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
+
+Random random = Random();
 
 class _HomePageState extends State<HomePage> {
   List<dynamic> locationNote = [];
@@ -71,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return Container(
-                            height: MediaQuery.of(context).size.height - 80,
+                            height: MediaQuery.of(context).size.height - 58,
                             alignment: Alignment.centerLeft,
                             child: FlutterMap(
                               options: MapOptions(
