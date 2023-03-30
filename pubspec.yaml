@@ -10,6 +10,9 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  latlong2: ^0.8.1
+  flutter_map: ^3.1.0
+  flutter_map_location_marker:
 
 dev_dependencies:
   flutter_test:
@@ -20,7 +23,6 @@ dev_dependencies:
   json_annotation:
   shared_preferences:
   flutter_riverpod:
-  latlong2:
   dio:
   provider:
   geolocator:
