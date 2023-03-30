@@ -1,19 +1,6 @@
 import 'package:flutter/material.dart';
 import '../helpers/dbHelper.dart';
 
-class MyNotePage extends StatelessWidget {
-  const MyNotePage({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Text("Note Page")],
-      ),
-    );
-  }
-}
-
 class MyNotes extends StatelessWidget {
   MyNotes({Key? key}) : super(key: key);
 
@@ -22,9 +9,7 @@ class MyNotes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTextStyle(
-      style: Theme.of(context).textTheme.displayMedium!,
-      textAlign: TextAlign.center,
+    return Center(
       child: FutureBuilder<List>(
         future: db.findAll(),
         builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
@@ -34,14 +19,15 @@ class MyNotes extends StatelessWidget {
                 itemCount: snapshot.data?.length,
                 itemBuilder: (context, index) {
                   var note = snapshot.data?[index]!;
+                  print(note);
                   return ListTile(
-                    title: Text(note.username.v ?? ''),
-                    subtitle: note.note.v?.isNotEmpty ?? false ? Text("") : null,
+                    title: Text(note['username'] ?? ''),
+                    subtitle: Text(note['note']),
                     onTap: () {},
                   );
                 });
           } else {
-            children = Text("oui");
+            children = const Text("Chargement en cours");
           }
           return Center(child: children);
         },

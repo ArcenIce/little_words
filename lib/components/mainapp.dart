@@ -57,7 +57,7 @@ class _MainAppPageState extends State<MainAppPage> {
             });
           },
         ),
-        floatingActionButton: const addButton(),
+        floatingActionButton: const AddButton(),
       );
     });
   }

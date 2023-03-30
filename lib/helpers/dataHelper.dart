@@ -30,25 +30,9 @@ Future fetchData(url) async {
 }
 
 Future getAllItems() async {
-  LocationPermission permission;
-  bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  if (!serviceEnabled) {
-    return Future.error('Location services are disabled.');
-  }
-  permission = await Geolocator.checkPermission();
-  if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.denied) {
-      return Future.error('Location permissions are denied');
-    }
-  }
-
-  if (permission == LocationPermission.deniedForever) {
-    return Future.error('Location permissions are permanently denied, we cannot request permissions.');
-  }
-  var location = await Geolocator.getCurrentPosition();
-  // var url = "https://backend.smallwords.samyn.ovh/word/around?latitude=${location.latitude}&longitude=${location.longitude}";
-  var url = "https://backend.smallwords.samyn.ovh/word/around?latitude=50.950755&longitude=1.883361";
+  var location = await getPosition();
+  var url = "https://backend.smallwords.samyn.ovh/word/around?latitude=${location.latitude}&longitude=${location.longitude}";
+  // var url = "https://backend.smallwords.samyn.ovh/word/around?latitude=50.950755&longitude=1.883361";
   var data = await fetchData(url);
   return data;
 }
@@ -72,4 +56,26 @@ Future getPosition() async {
   }
   var location = await Geolocator.getCurrentPosition();
   return location;
+}
+
+Future<http.Response> postRequest (word,user,lat,long) async {
+  var url = "https://backend.smallwords.samyn.ovh/word?";
+  Map data = {
+	  "content":word,
+	  "author":user,
+	  "latitude": lat,
+	  "longitude":long
+  };
+  var body = json.encode(data);
+  var response = await http.post(Uri.parse(url),
+      headers: {"Content-Type": "application/json"},
+      body: body
+  );
+  return response;
+}
+
+Future getDetails(uid, latitude, longitude) async {
+  var url = "https://backend.smallwords.samyn.ovh/word?uid=${uid}&latitude=${latitude}&longitude=${longitude}";
+  var data = await fetchData(url);
+  return data;
 }
