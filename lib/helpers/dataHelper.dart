@@ -50,3 +50,9 @@ Future getAllItems() async {
   var data = await fetchData(url);
   return data;
 }
+
+Future getDetails(uid, latitude, longitude) async {
+  var url = "https://backend.smallwords.samyn.ovh/word?uid=${uid}&latitude=${latitude}&longitude=${longitude}";
+  var data = await fetchData(url);
+  return data;
+}
