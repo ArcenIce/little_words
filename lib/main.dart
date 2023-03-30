@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:little_words/components/homepage.dart';
-
 import 'helpers/dataHelper.dart';
 import 'components/username.dart';
-import 'components/mainapp.dart';
 
 void main() {
   runApp(const MyApp());
