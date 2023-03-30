@@ -6,7 +6,6 @@ import '../helpers/dataHelper.dart';
 import '../helpers/dbHelper.dart';
 import '../components/mynotes.dart';
 import '../components/addWidget.dart';
-import 'package:keyboard_attachable/keyboard_attachable.dart';
 
 
 class MyAppState extends ChangeNotifier {
