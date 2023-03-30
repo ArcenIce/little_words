@@ -6,7 +6,7 @@ class WordCard extends StatelessWidget {
   final double latitude;
   final double longitude;
   final int id;
-  var db = DbHelper();
+  final db = DbHelper();
 
   WordCard({super.key, required this.latitude, required this.longitude, required this.id});
 
