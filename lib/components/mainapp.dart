@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../components/homepage.dart';
+import '../components/mynotes.dart';
+import '../components/addWidget.dart';
 
 class MainAppPage extends StatefulWidget {
   const MainAppPage({super.key});
@@ -19,7 +21,7 @@ class _MainAppPageState extends State<MainAppPage> {
         page = const HomePage();
         break;
       case 1:
-        page = const MyNotePage();
+        page = MyNotes();
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
@@ -41,11 +43,11 @@ class _MainAppPageState extends State<MainAppPage> {
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              label: 'Home',
+              label: 'Accueil',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              label: 'Favorites',
+              icon: Icon(Icons.event_note),
+              label: 'Mes mots',
             ),
           ],
           currentIndex: selectedIndex,
@@ -55,20 +57,8 @@ class _MainAppPageState extends State<MainAppPage> {
             });
           },
         ),
+        floatingActionButton: const addButton(),
       );
     });
-  }
-}
-
-class MyNotePage extends StatelessWidget {
-  const MyNotePage({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Text("Note Page")],
-      ),
-    );
   }
 }
