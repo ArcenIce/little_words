@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.little_words">
     <application
-        android:label="little_words"
+        android:label="CapibaMap"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
