@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:latlong2/latlong.dart';
 import '../helpers/dataHelper.dart';
+import '../helpers/dbHelper.dart';
 
 class MyAppState extends ChangeNotifier {
   var current = 0;
@@ -16,12 +17,18 @@ List<Marker> setMarkers(data) {
   var markers = <Marker>[];
 
   for (Map<String, dynamic> note in data) {
-    print(note);
+    final db = DbHelper();
+    db.findAll();
     markers.add(Marker(
-      width: 80,
-      height: 80,
+      width: 120,
+      height: 120,
       point: LatLng(note['latitude'] ?? 0, note['longitude'] ?? 0.0),
-      builder: (ctx) => const Icon(Icons.location_on, color: Colors.blue),
+      builder: (ctx) => InkWell(
+          onTap: () async {
+            var data = await getDetails(note['uid'], note['latitude'], note['longitude']);
+            db.insert(data['data']['uid'], data['data']['author'], data['data']['content']);
+          },
+          child: const Icon(Icons.location_on, color: Colors.blue, size: 35)),
     ));
   }
 
@@ -62,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                             options: MapOptions(
                               center: LatLng(snapshot.data.latitude ?? 0, snapshot.data.longitude ?? 0),
                               zoom: 17,
-                              maxZoom: 18,
+                              maxZoom: 20,
                             ),
                             children: [
                               TileLayer(
