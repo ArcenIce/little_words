@@ -7,7 +7,6 @@ import '../helpers/dbHelper.dart';
 import '../components/mynotes.dart';
 import '../components/addWidget.dart';
 
-
 class MyAppState extends ChangeNotifier {
   var current = 0;
 
@@ -31,10 +30,10 @@ List<Marker> setMarkers(data, context) {
             var data = await getDetails(note['uid'], note['latitude'], note['longitude']);
             db.insert(data['data']['uid'], data['data']['author'], data['data']['content']);
             Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const HomePage(),
-              ));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const HomePage(),
+                ));
           },
           child: const Icon(Icons.location_on, color: Colors.blue, size: 35)),
     ));
@@ -51,92 +50,86 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   List<dynamic> locationNote = [];
   var markers = <Marker>[];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-  
       resizeToAvoidBottomInset: false,
-      body: 
-
-      Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        FutureBuilder(
-            future: getAllItems(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                locationNote = snapshot.data['data'];
-                markers = setMarkers(locationNote, context);
-                return FutureBuilder(
-                    future: getPosition(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return Container(
-                          height: MediaQuery.of(context).size.height - 80,
-                          alignment: Alignment.centerLeft,
-                          child: FlutterMap(
-                            options: MapOptions(
-                              center: LatLng(snapshot.data.latitude ?? 0, snapshot.data.longitude ?? 0),
-                              zoom: 17,
-                              maxZoom: 20,
-                            ),
-                            children: [
-                              TileLayer(
-                                urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                                userAgentPackageName: 'com.example.app',
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          FutureBuilder(
+              future: getAllItems(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  locationNote = snapshot.data['data'];
+                  markers = setMarkers(locationNote, context);
+                  return FutureBuilder(
+                      future: getPosition(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Container(
+                            height: MediaQuery.of(context).size.height - 80,
+                            alignment: Alignment.centerLeft,
+                            child: FlutterMap(
+                              options: MapOptions(
+                                center: LatLng(snapshot.data.latitude ?? 0, snapshot.data.longitude ?? 0),
+                                zoom: 17,
+                                maxZoom: 20,
                               ),
-                              CurrentLocationLayer(),
-                              MarkerLayer(markers: markers)
-                            ],
-                          ),
-                        );
-                      } else {
-                        return const Text("");
-                      }
-                    });
-                //return WordCards(items: locationNote);
-              } else {
-                return const Text("Chargement en cours");
-              }
-            }),
-      ],
-    ),
-    bottomNavigationBar: 
-          BottomNavigationBar(
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Accueil',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.event_note),
-                label: 'Mes mots',
-              ),
-            ],
-            currentIndex: 0,
-            onTap: (value) {
-              if (value == 0) {
-                Navigator.pushReplacement(
+                              children: [
+                                TileLayer(
+                                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                  userAgentPackageName: 'com.example.app',
+                                ),
+                                CurrentLocationLayer(),
+                                MarkerLayer(markers: markers)
+                              ],
+                            ),
+                          );
+                        } else {
+                          return const Text("");
+                        }
+                      });
+                  //return WordCards(items: locationNote);
+                } else {
+                  return Center(child: CircularProgressIndicator());
+                }
+              }),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Accueil',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.event_note),
+            label: 'Mes mots',
+          ),
+        ],
+        currentIndex: 0,
+        onTap: (value) {
+          if (value == 0) {
+            Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const HomePage(),
                 ));
-              }
-              else {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MyNotes(),
-                  ));
-              }
-            },
-          ),
-        // ),
-        floatingActionButton: const AddButton(),
+          } else {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MyNotes(),
+                ));
+          }
+        },
+      ),
+      // ),
+      floatingActionButton: const AddButton(),
     );
   }
 }
