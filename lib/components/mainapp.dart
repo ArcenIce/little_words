@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../components/homepage.dart';
+import '../components/addWidget.dart';
 
 class MainAppPage extends StatefulWidget {
   const MainAppPage({super.key});
@@ -55,6 +56,7 @@ class _MainAppPageState extends State<MainAppPage> {
             });
           },
         ),
+        floatingActionButton: const addButton(),
       );
     });
   }
