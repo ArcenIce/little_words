@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:little_words/components/homepage.dart';
 import '../helpers/dataHelper.dart';
-import '../components/mainapp.dart';
 
 
 class AddButton extends StatefulWidget {
@@ -57,8 +56,7 @@ class _AddButtonState extends State<AddButton>{
               height: 260, 
               color: Colors.white,
               child : Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children : <Widget>[   
                     const Padding(
                       padding: EdgeInsets.only(left: 15.0,top: 15.0),
