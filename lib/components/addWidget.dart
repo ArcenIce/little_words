@@ -50,56 +50,70 @@ class _AddButtonState extends State<AddButton>{
       tooltip: 'Button',
       onPressed: (){
         showModalBottomSheet(
+          shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
           context: context, 
+          isScrollControlled: true,
           builder: (BuildContext context) {
-            return Container(
-              height: 260, 
-              color: Colors.white,
-              child : Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children : <Widget>[   
-                    const Padding(
-                      padding: EdgeInsets.only(left: 15.0,top: 15.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Création d'une note",
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            return Padding(
+              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,  
+                mainAxisSize: MainAxisSize.min,
+                
+                children: [
+            
+                  Container(
+                    height: 260, 
+                    color: Colors.white,
+                    child : Column(
+                      // crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children : <Widget>[   
+                          const Padding(
+                            padding: EdgeInsets.only(left: 15.0,top: 15.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Création d'une note",
+                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                  ),
+                              ],
                             ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left:15.0,right: 15.0,top: 10.0),
-                      child: TextField(
-                      controller: _textEditingController,
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Taper le contenu de votre mot',
-                        ),
-                        minLines: 4, // any number you need (It works as the rows for the textarea)
-                        keyboardType: TextInputType.multiline,
-                        maxLines: null,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15.0,right: 15.0,top: 10.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              foregroundColor: Colors.white, backgroundColor: Colors.purple.shade300, // foreground
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left:15.0,right: 15.0,top: 10.0),
+                            child: TextField(
+                            controller: _textEditingController,
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'Taper le contenu de votre mot',
+                              ),
+                              minLines: 4, // any number you need (It works as the rows for the textarea)
+                              keyboardType: TextInputType.multiline,
+                              maxLines: null,
                             ),
-                            onPressed:_addNoteInDatabase,
-                            child: const Text('Ajouter le mot'),
-                          )),
-                        ],
-                      ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15.0,right: 15.0,top: 10.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    foregroundColor: Colors.white, backgroundColor: Colors.purple.shade300, // foreground
+                                  ),
+                                  onPressed:_addNoteInDatabase,
+                                  child: const Text('Ajouter le mot'),
+                                )),
+                              ],
+                            ),
+                          )
+                      ]
                     )
-                ]
-              )
+                  ),
+                ],
+              ),
             );
           });
       },

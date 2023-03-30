@@ -6,6 +6,8 @@ import '../helpers/dataHelper.dart';
 import '../helpers/dbHelper.dart';
 import '../components/mynotes.dart';
 import '../components/addWidget.dart';
+import 'package:keyboard_attachable/keyboard_attachable.dart';
+
 
 class MyAppState extends ChangeNotifier {
   var current = 0;
@@ -50,12 +52,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   List<dynamic> locationNote = [];
   var markers = <Marker>[];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+  
       resizeToAvoidBottomInset: false,
       body: 
 
@@ -102,35 +106,37 @@ class _HomePageState extends State<HomePage> {
             }),
       ],
     ),
-    bottomNavigationBar: BottomNavigationBar(
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Accueil',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.event_note),
-              label: 'Mes mots',
-            ),
-          ],
-          currentIndex: 0,
-          onTap: (value) {
-            if (value == 0) {
-              Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const HomePage(),
-              ));
-            }
-            else {
-              Navigator.pushReplacement(
+    bottomNavigationBar: 
+          BottomNavigationBar(
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Accueil',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.event_note),
+                label: 'Mes mots',
+              ),
+            ],
+            currentIndex: 0,
+            onTap: (value) {
+              if (value == 0) {
+                Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MyNotes(),
+                  builder: (context) => const HomePage(),
                 ));
-            }
-          },
-        ),
+              }
+              else {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MyNotes(),
+                  ));
+              }
+            },
+          ),
+        // ),
         floatingActionButton: const AddButton(),
     );
   }
