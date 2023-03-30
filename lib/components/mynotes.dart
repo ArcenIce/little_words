@@ -19,7 +19,6 @@ class MyNotes extends StatelessWidget {
                 itemCount: snapshot.data?.length,
                 itemBuilder: (context, index) {
                   var note = snapshot.data?[index]!;
-                  print(note);
                   return ListTile(
                     title: Text(note['username'] ?? ''),
                     subtitle: Text(note['note']),

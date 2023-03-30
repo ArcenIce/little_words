@@ -25,6 +25,8 @@ dev_dependencies:
   provider:
   geolocator:
   http:
+  flutter_map:
+  flutter_map_location_marker:
 
 
 flutter:
