@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:little_words/components/homepage.dart';
 import '../helpers/dataHelper.dart';
+import '../components/mainapp.dart';
 
 
 class AddButton extends StatefulWidget {
@@ -29,6 +31,11 @@ class _AddButtonState extends State<AddButton>{
     print(location.latitude);
     print(location.longitude);
     postRequest(content, user, location.latitude, location.longitude);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const HomePage(),
+      ));
   }
 
   void _editingText(){
@@ -87,7 +94,7 @@ class _AddButtonState extends State<AddButton>{
                             style: ElevatedButton.styleFrom(
                               foregroundColor: Colors.white, backgroundColor: Colors.purple.shade300, // foreground
                             ),
-                            onPressed: _addNoteInDatabase,
+                            onPressed:_addNoteInDatabase,
                             child: const Text('Ajouter le mot'),
                           )),
                         ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:little_words/components/mainapp.dart';
+import 'package:little_words/components/homepage.dart';
 import '../helpers/dataHelper.dart';
 
 class UsernamePage extends StatelessWidget {
@@ -26,7 +26,7 @@ class UsernamePage extends StatelessWidget {
                 setData(usernameControl.text),
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const MainAppPage()),
+                  MaterialPageRoute(builder: (context) => const HomePage()),
                 )
               },
               child: const Text('Enregistrer'),

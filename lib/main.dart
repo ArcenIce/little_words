@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:little_words/components/homepage.dart';
 
 import 'helpers/dataHelper.dart';
 import 'components/username.dart';
@@ -40,7 +41,7 @@ class Home extends StatelessWidget {
             if (snapshot.data == "") {
               children = const UsernamePage();
             } else {
-              children = const MainAppPage();
+              children = const HomePage();
             }
           } else {
             children = const UsernamePage();

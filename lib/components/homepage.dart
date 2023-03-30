@@ -4,6 +4,8 @@ import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:latlong2/latlong.dart';
 import '../helpers/dataHelper.dart';
 import '../helpers/dbHelper.dart';
+import '../components/mynotes.dart';
+import '../components/addWidget.dart';
 
 class MyAppState extends ChangeNotifier {
   var current = 0;
@@ -13,7 +15,7 @@ class MyAppState extends ChangeNotifier {
   }
 }
 
-List<Marker> setMarkers(data) {
+List<Marker> setMarkers(data, context) {
   var markers = <Marker>[];
 
   for (Map<String, dynamic> note in data) {
@@ -27,6 +29,11 @@ List<Marker> setMarkers(data) {
           onTap: () async {
             var data = await getDetails(note['uid'], note['latitude'], note['longitude']);
             db.insert(data['data']['uid'], data['data']['author'], data['data']['content']);
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomePage(),
+              ));
           },
           child: const Icon(Icons.location_on, color: Colors.blue, size: 35)),
     ));
@@ -57,7 +64,7 @@ class _HomePageState extends State<HomePage> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 locationNote = snapshot.data['data'];
-                markers = setMarkers(locationNote);
+                markers = setMarkers(locationNote, context);
                 return FutureBuilder(
                     future: getPosition(),
                     builder: (context, snapshot) {
@@ -91,6 +98,37 @@ class _HomePageState extends State<HomePage> {
               }
             }),
       ],
-    ));
+    ),
+    bottomNavigationBar: BottomNavigationBar(
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Accueil',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.event_note),
+              label: 'Mes mots',
+            ),
+          ],
+          currentIndex: 0,
+          onTap: (value) {
+            if (value == 0) {
+              Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomePage(),
+              ));
+            }
+            else {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MyNotes(),
+                ));
+            }
+          },
+        ),
+        floatingActionButton: const AddButton(),
+    );
   }
 }
