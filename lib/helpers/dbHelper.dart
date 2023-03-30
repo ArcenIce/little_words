@@ -50,6 +50,10 @@ class DbHelper {
     _db!.insert(tableName, toMap(uid, username, note));
   }
 
+  void delete(uid) {
+    _db!.delete(tableName, where: "uid = $uid");
+  }
+
   /// Récupérer toutes les lignes de la table
   Future<List> findAll() async {
     await initDb();
