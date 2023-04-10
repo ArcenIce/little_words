@@ -31,7 +31,7 @@ Future fetchData(url) async {
 
 Future getAllItems() async {
   var location = await getPosition();
-  var url = "https://backend.smallwords.samyn.ovh/word/around?latitude=${location.latitude}&longitude=${location.longitude}";
+  var url = "https://little-words.onrender.com/word/around?latitude=${location.latitude}&longitude=${location.longitude}";
   // var url = "https://backend.smallwords.samyn.ovh/word/around?latitude=50.950755&longitude=1.883361";
   var data = await fetchData(url);
   return data;
@@ -59,7 +59,7 @@ Future getPosition() async {
 }
 
 Future<http.Response> postRequest (word,user,lat,long) async {
-  var url = "https://backend.smallwords.samyn.ovh/word?";
+  var url = "https://little-words.onrender.com/word?";
   Map data = {
 	  "content":word,
 	  "author":user,
@@ -75,7 +75,7 @@ Future<http.Response> postRequest (word,user,lat,long) async {
 }
 
 Future getDetails(uid, latitude, longitude) async {
-  var url = "https://backend.smallwords.samyn.ovh/word?uid=${uid}&latitude=${latitude}&longitude=${longitude}";
+  var url = "https://little-words.onrender.com/word?uid=${uid}&latitude=${latitude}&longitude=${longitude}";
   var data = await fetchData(url);
   return data;
 }
